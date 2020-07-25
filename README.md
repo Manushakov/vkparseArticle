@@ -5,9 +5,9 @@
 Вся функциональность описана в классе, для запуска парсинга существует метод класса start_parse.
 
 установка зависимостей\
-pip install -r requirements\
+pip install -r requirements
 
 запуск программы\
-python main.py\
+python main.py
 
 result.csv - итоговый результат работы программы.
