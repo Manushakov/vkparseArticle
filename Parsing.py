@@ -108,6 +108,7 @@ class Parse:
     def _create_csv(self, urls_list):
         """Функция принимает список ссылок и создает информацию с каждой из них"""
         count = 0
+        frames = []
         for url in urls_list:
             count += 1
             print(f"Анализировано {count} статей")
@@ -118,7 +119,10 @@ class Parse:
                 "img": content[2]
 
             }]
-            pd.DataFrame(data).to_csv('result.csv', index=False)
+
+            frames.append(pd.DataFrame(data))
+        result = pd.concat(frames)
+        return result.to_csv('result.csv', index=False)
 
     def start_parse(self):
         try:
