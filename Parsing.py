@@ -12,6 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 PAUSE_TIME = 3
 PATH = 'geckodriver.exe'
 opt = webdriver.FirefoxOptions()
+opt.headless = True
 driver = webdriver.Firefox(executable_path=PATH, options=opt)
 
 
