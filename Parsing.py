@@ -126,6 +126,7 @@ class Parse:
         return result.to_csv('result.csv', index=False)
 
     def start_parse(self):
+        """ Производит запуск всего цикла парсинга, результатом которого является csv файл"""
         try:
             self._login()
             links = self._get_articles()
