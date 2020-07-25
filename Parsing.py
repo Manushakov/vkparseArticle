@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
-
+import sys
 
 
 PAUSE_TIME = 3
@@ -48,7 +48,8 @@ class Parse:
 
         except TimeoutException:
             print("Ошибка выполнения, проверьте входные данные")
-
+            driver.close()
+            sys.exit()
         else:
             print("Авторизация прошла успешно")
 
