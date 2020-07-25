@@ -7,7 +7,7 @@
 Вся функциональность описана в классе, для запуска парсинга существует метод класса start_parse.
 
 установка зависимостей
-pip install -r requirements
+pip install -r requirements.txt
 запуск программы
 python main.py
 
