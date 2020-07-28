@@ -24,6 +24,8 @@ class Parse:
     _login - метод для авторизации
     _get_articles - метод для получения списка статей
     _get_information - метод для получения, обработки и добавления полученной информации в csv файл
+    _create_csv - собирает информацию, по итогу создает csv файл с результатами
+    _start_parse - запускает полный цикл работы парсера
     """
 
     @staticmethod
@@ -77,7 +79,8 @@ class Parse:
         result = driver.find_elements_by_css_selector(".author_page_block a")
         for i in result:
             links_dict.append(i.get_attribute("href"))
-        print("Список статей успешно получен")
+        value = len(links_dict)
+        print(f"Список статей успешно получен. Количество {value}")
         return links_dict  # Возвращает список с ссылками на все статьи
 
     @staticmethod
