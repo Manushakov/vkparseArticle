@@ -7,13 +7,17 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
+capabilities = DesiredCapabilities.FIREFOX.copy()
+print(capabilities)
 PAUSE_TIME = 3
-PATH = 'geckodriver.exe'
-opt = webdriver.FirefoxOptions()
-opt.headless = True
-driver = webdriver.Firefox(executable_path=PATH, options=opt)
+
+driver = webdriver.Remote(
+    command_executor='http://localhost:4444/wd/hub',
+    desired_capabilities=capabilities
+)
 
 
 class Parse:

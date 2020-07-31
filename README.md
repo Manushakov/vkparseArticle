@@ -4,8 +4,22 @@
 Библиотеку lxml я использовал для ускорения парсинга bs4. Pandas мне понадобился для реализации csv таблиц.
 Вся функциональность описана в классе, для запуска парсинга существует метод класса start_parse.
 ---
-Изначально geckodriver.exe настроен на работу с 64 битной Windows, с УСТАНОВЛЕННОЙ MOZILLA FIREFOX. инструкция по настройке для других систем:
-https://selenium-python.com/install-geckodriver/
+Необходимо наличие DOCKER для дальнейшей установки Selenoid
+
+Установка Selenoid для LINUX и MAC\
+curl -s https://aerokube.com/cm/bash | bash 
+
+Запуск браузера
+
+&& ./cm selenoid start —browsers 'firefox:71.0;'
+
+Установка Selenoid для Windows в PowerShell
+
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString("https://aerokube.com/cm/posh")
+
+Запуск браузера
+
+.\cm_windows_amd64.exe selenoid start —browsers 'firefox:71.0;'
 
 копирование программы к себе с помощью git\
 git clone https://github.com/Manushakov/vkparseArticle.git
