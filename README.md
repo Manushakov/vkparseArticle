@@ -5,13 +5,14 @@
 Вся функциональность описана в классе, для запуска парсинга существует метод класса start_parse.
 ---
 Необходимо наличие DOCKER для дальнейшей установки Selenoid
+Используется Python 3.7
 
 Установка Selenoid для LINUX и MAC\
 curl -s https://aerokube.com/cm/bash | bash 
 
-Запуск браузера
+Установка и запуск браузера
 
-&& ./cm selenoid start —browsers 'firefox:71.0;'
+./cm selenoid start —browsers 'firefox:71.0;'
 
 Установка Selenoid для Windows в PowerShell
 
