@@ -10,8 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
-capabilities = DesiredCapabilities.FIREFOX.copy()
-print(capabilities)
+capabilities = DesiredCapabilities.CHROME.copy()
 PAUSE_TIME = 3
 
 driver = webdriver.Remote(
@@ -61,9 +60,10 @@ class Parse:
 
     @staticmethod
     def _get_articles():  # Функция для получения ссылок на все статьи
+        link = input("Введите ссылку на список статей, например https://vk.com/@yvkurse ")
         """Функция выводит список всех статей"""
         links_dict = []
-        driver.get("https://vk.com/@yvkurse")
+        driver.get(link)
         # Получает высоту документа
         last_height = driver.execute_script("return document.body.scrollHeight")
 

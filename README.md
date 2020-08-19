@@ -14,7 +14,7 @@ Selenoid – это сервер, запускающий изолированн�
 
 **Установка и запуск браузера**
 
-`./cm selenoid start —browsers 'firefox:71.0;'`
+`./cm selenoid start —browsers 'chrome:71.0;`
 
 **Установка Selenoid для Windows в PowerShell**
 
@@ -22,7 +22,7 @@ Selenoid – это сервер, запускающий изолированн�
 
 **Запуск браузера**
 
-`.\cm_windows_amd64.exe selenoid start —browsers 'firefox:71.0;'`
+`.\cm_windows_amd64.exe selenoid start —browsers 'chrome:71.0;'`
 
 **копирование программы к себе с помощью git**
 
