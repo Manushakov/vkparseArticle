@@ -1,5 +1,6 @@
 import time
 import sys
+import logging
 import pandas as pd
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -12,6 +13,14 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 capabilities = DesiredCapabilities.CHROME.copy()
 PAUSE_TIME = 3
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger_handler = logging.StreamHandler(sys.stdout)
+logger_handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger_handler.setFormatter(formatter)
+logger.addHandler(logger_handler)
 
 driver = webdriver.Remote(
     command_executor='http://localhost:4444/wd/hub',
@@ -32,9 +41,9 @@ class Parse:
     """
 
     @staticmethod
-    def _login():  # функция для авторизации
+    def _login():  # метод для авторизации
         """
-        Функция с помощью веб драйвера производит авторизацию, в случае неправильной пары пароль/логин выдает ошибку
+        метод с помощью веб драйвера производит авторизацию, в случае неправильной пары пароль/логин выдает ошибку
         TimeoutException
         """
         username = input("Введите логин от вк ")
@@ -52,16 +61,18 @@ class Parse:
             myelem = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'page_avatar_wrap')))
 
         except TimeoutException:
-            print("Ошибка выполнения, проверьте входные данные")
+            logger.warning("Ошибка выполнения, проверьте входные данные")
             driver.close()
             sys.exit()
         else:
-            print("Авторизация прошла успешно")
+            logger.info("Авторизация прошла успешно")
 
     @staticmethod
-    def _get_articles():  # Функция для получения ссылок на все статьи
+    def _get_articles():  # метод для получения ссылок на все статьи
+        """
+        метод выводит список всех статей
+        """
         link = input("Введите ссылку на список статей, например https://vk.com/@yvkurse ")
-        """Функция выводит список всех статей"""
         links_dict = []
         driver.get(link)
         # Получает высоту документа
@@ -84,12 +95,12 @@ class Parse:
         for i in result:
             links_dict.append(i.get_attribute("href"))
         value = len(links_dict)
-        print(f"Список статей успешно получен. Количество {value}")
+        logger.info(f"Список статей успешно получен. Количество {value}")
         return links_dict  # Возвращает список с ссылками на все статьи
 
     @staticmethod
     def _get_information(url):
-        """Функция принимает статью и выводит сгрупированную информацию про нее"""
+        """метод принимает статью и выводит сгрупированную информацию про нее"""
         img_list = []
         text_list = ""
         driver.get(url)
@@ -115,12 +126,12 @@ class Parse:
         return [header, text_list, img_list]
 
     def _create_csv(self, urls_list):
-        """Функция принимает список ссылок и создает информацию с каждой из них"""
+        """метод принимает список ссылок и создает информацию с каждой из них"""
         count = 0
         frames = []
         for url in urls_list:
             count += 1
-            print(f"Анализировано {count} статей")
+            logger.info(f"Анализировано {count} статей")
             content = self._get_information(url)
             data = [{
                 "Заголовок": content[0],
@@ -141,4 +152,4 @@ class Parse:
             self._create_csv(links)
         finally:
             driver.quit()
-            print("Программа закрыта")
+            logger.info("Программа закрыта")
