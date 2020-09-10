@@ -68,11 +68,11 @@ class Parse:
             logger.info("Авторизация прошла успешно")
 
     @staticmethod
-    def _get_articles():  # метод для получения ссылок на все статьи
+    def _get_articles() -> list:
         """
         метод выводит список всех статей
         """
-        link = input("Введите ссылку на список статей, например https://vk.com/@yvkurse ")
+        link = input("Введите ссылку на список статей, например https://vk.com/@yvkurse:  ")
         links_dict = []
         driver.get(link)
         # Получает высоту документа
@@ -99,7 +99,7 @@ class Parse:
         return links_dict  # Возвращает список с ссылками на все статьи
 
     @staticmethod
-    def _get_information(url):
+    def _get_information(url) -> list:
         """метод принимает статью и выводит сгрупированную информацию про нее"""
         img_list = []
         text_list = ""
@@ -125,14 +125,15 @@ class Parse:
 
         return [header, text_list, img_list]
 
-    def _create_csv(self, urls_list):
+    @staticmethod
+    def _create_csv(urls_list):
         """метод принимает список ссылок и создает информацию с каждой из них"""
         count = 0
         frames = []
         for url in urls_list:
             count += 1
             logger.info(f"Анализировано {count} статей")
-            content = self._get_information(url)
+            content = Parse._get_information(url)
             data = [{
                 "Заголовок": content[0],
                 "Текст статьи": content[1],
@@ -144,7 +145,7 @@ class Parse:
         result = pd.concat(frames)
         return result.to_csv('result.csv', index=False)
 
-    def start_parse(self):
+    def start_parse(self) -> None:
         """ Производит запуск всего цикла парсинга, результатом которого является csv файл"""
         try:
             self._login()
