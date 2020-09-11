@@ -1,4 +1,4 @@
-from Parsing import Parse
+from parsing import Parse
 
 # Импортируем Класс Parse и запускаем программу
 
